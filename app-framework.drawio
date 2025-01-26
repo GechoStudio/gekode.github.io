@@ -4,22 +4,37 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="-HIgVq5yfehorjmfj9ND-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-HIgVq5yfehorjmfj9ND-1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="220" y="350" as="targetPoint" />
+        <mxCell id="-HIgVq5yfehorjmfj9ND-1" value="Subject" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="270" height="86" as="geometry">
+            <mxRectangle x="270" y="30" width="80" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-HIgVq5yfehorjmfj9ND-1" value="Subject" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="100" y="100" width="210" height="86" as="geometry" />
-        </mxCell>
-        <mxCell id="-HIgVq5yfehorjmfj9ND-2" value="+ subjectId: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-1">
-          <mxGeometry y="26" width="210" height="26" as="geometry" />
+        <mxCell id="-HIgVq5yfehorjmfj9ND-2" value="+ subjectId: string&lt;div&gt;+ parentId: string&lt;/div&gt;&lt;div&gt;+ children: List&amp;lt;childSubjectId&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-1">
+          <mxGeometry y="26" width="270" height="26" as="geometry" />
         </mxCell>
         <mxCell id="-HIgVq5yfehorjmfj9ND-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-1">
-          <mxGeometry y="52" width="210" height="8" as="geometry" />
+          <mxGeometry y="52" width="270" height="8" as="geometry" />
         </mxCell>
         <mxCell id="-HIgVq5yfehorjmfj9ND-4" value="+ create(Subject): Subject&lt;div&gt;+ retrieve(SubjectId): Subject&lt;br&gt;&lt;div&gt;+ update(Subject): Subject&lt;/div&gt;&lt;div&gt;+ delete(SubjectId): Receipt&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-1">
-          <mxGeometry y="60" width="210" height="26" as="geometry" />
+          <mxGeometry y="60" width="270" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-7" value="Client: Sync my data please (Here is my authentication token, the list of subjectIDs for the subjects I currently care about, and I last synced at [datetimestamp])&lt;div&gt;Server: Authenticated.&amp;nbsp; Of your subjects, these have been updated (Full subject data) and these have been deleted (subject Ids) since [datatimestamp]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;or&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Server: Authenticated.&amp;nbsp; None of your subjects have changed&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;or (when a subject has been created)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Server: Authenticated.&amp;nbsp; Congratulations! [parentSubjectId] has had a baby called [childSubjetId]!&lt;/div&gt;&lt;div&gt;Client: Retrieve the subject with this Id [childSubjectId]&lt;/div&gt;&lt;div&gt;Server: Here is the Subject with id [childSubjectId]&lt;/div&gt;&lt;div&gt;or:&lt;/div&gt;&lt;div&gt;Client: Retrieve these subjects (List[subjectIds])&lt;/div&gt;&lt;div&gt;Server Here are those subjects.&lt;br&gt;&lt;br&gt;Client Component cycle:&lt;br&gt;Refresh(subjectIds) -&amp;gt; Heartbeat Sync -&amp;gt; be notified of updates -&amp;gt; retrieve updated data -&amp;gt; render display -&amp;gt; Heartbeat Sync...&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;User interaction invoking a Subject&#39;s CRUD operations should broadcast a client event (with the relevant subjectId), so all client components can respond however they wish.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="414" y="150" width="460" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-10" value="ClientComponent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="430" width="290" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-11" value="+ model: json" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-10">
+          <mxGeometry y="26" width="290" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-12" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-10">
+          <mxGeometry y="52" width="290" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-13" value="+ sync(List&amp;lt;subjectId&amp;gt;): json&lt;div&gt;+ refresh()&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="-HIgVq5yfehorjmfj9ND-10">
+          <mxGeometry y="60" width="290" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="-HIgVq5yfehorjmfj9ND-14" value="Stateless REST syncronisation with minimal traffic" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="550" y="110" width="80" height="26" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
